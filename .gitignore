@@ -109,7 +109,7 @@ venv.bak/
 mmpose/.mim
 /models
 /data
-.vscode
+#.vscode
 .idea
 *.pkl
 *.pkl.json
@@ -131,3 +131,4 @@ docs/**/modelzoo.md
 *.pth
 
 *.DS_Store
+./vis_results

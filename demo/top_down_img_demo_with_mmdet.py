@@ -91,7 +91,7 @@ def main():
 
     # test a single image, the resulting box is (x1, y1, x2, y2)
     mmdet_results = inference_detector(det_model, image_name)
-
+    #print(mmdet_results)
     # keep the person class bounding boxes.
     person_results = process_mmdet_results(mmdet_results, args.det_cat_id)
 
