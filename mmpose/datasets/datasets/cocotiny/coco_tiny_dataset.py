@@ -5,9 +5,10 @@ import tempfile
 
 import numpy as np
 from mmpose.core.evaluation.top_down_eval import (keypoint_nme, keypoint_pck_accuracy)
-
+import warnings
 from mmpose.datasets.builder import DATASETS
 from mmpose.datasets.datasets.base import Kpt2dSviewRgbImgTopDownDataset
+from mmcv import Config, deprecated_api_warning
 
 @DATASETS.register_module()
 class TopDownCocoTinyDataset(Kpt2dSviewRgbImgTopDownDataset):
@@ -19,18 +20,29 @@ class TopDownCocoTinyDataset(Kpt2dSviewRgbImgTopDownDataset):
                  pipeline,
                  dataset_info=None,
                  test_mode=False):
+        if dataset_info is None:
+            warnings.warn(
+                 'dataset_info is missing. '
+                 'Check https://github.com/open-mmlab/mmpose/pull/663'
+                 'for details.', DeprecationWarning
+            )
+            cfg = Config.fromfile('/home/ahmed/work/mmpose/configs/_base_/datasets/cofw.py')
+            dataset_info = cfg._cfg_dict['dataset_info']
+
         super().__init__(
             ann_file,
             img_prefix,
             data_cfg,
             pipeline,
-            dataset_info=None,
+            dataset_info=dataset_info,
             coco_style=False,
             test_mode=test_mode
         )
 
+
         # flip_pairs, upper_body_ids and lower_body_ids will be used
         # in some data augmentations like random flip
+
         self.ann_info['flip_pairs'] = [[1, 2], [3, 4], [5, 6], [7, 8], [9, 10],
                                        [11, 12], [13, 14], [15, 16]]
         self.ann_info['upper_body_ids'] = (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10)

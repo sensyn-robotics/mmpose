@@ -2,15 +2,18 @@ import json
 import os.path as osp
 from collections import OrderedDict
 import tempfile
+import warnings
+
+from mmcv import Config, deprecated_api_warning
 
 import numpy as np
 from mmpose.core.evaluation.top_down_eval import (keypoint_nme, keypoint_pck_accuracy)
 
-# from mmpose.datasets.builder import DATASETS
-# from mmpose.datasets.datasets.base import Kpt2dSviewRgbImgTopDownDataset
+from mmpose.datasets.builder import DATASETS
+from mmpose.datasets.datasets.base import Kpt2dSviewRgbImgTopDownDataset
 
-from ...builder import DATASETS
-from ..base import Kpt2dSviewRgbImgTopDownDataset
+#from ...builder import DATASETS
+#from ..base import Kpt2dSviewRgbImgTopDownDataset
 
 @DATASETS.register_module()
 class TopDownCOCOTinyDataset(Kpt2dSviewRgbImgTopDownDataset):
@@ -22,12 +25,20 @@ class TopDownCOCOTinyDataset(Kpt2dSviewRgbImgTopDownDataset):
                  pipeline,
                  dataset_info=None,
                  test_mode=False):
+        if dataset_info is None:
+            warnings.warn(
+                'dataset_info is missing. '
+                'Check https://github.com/open-mmlab/mmpose/pull/663 '
+                'for details.', DeprecationWarning)
+            cfg = Config.fromfile('configs/_base_/datasets/coco.py')
+            dataset_info = cfg._cfg_dict['dataset_info']
+
         super().__init__(
             ann_file,
             img_prefix,
             data_cfg,
             pipeline,
-            dataset_info=None,
+            dataset_info=dataset_info,
             coco_style=False,
             test_mode=test_mode
         )

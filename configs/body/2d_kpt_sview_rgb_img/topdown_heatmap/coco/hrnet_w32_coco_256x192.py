@@ -1,3 +1,8 @@
+#_base_ = [
+#    '/home/ahmed/work/mmpose/configs/_base_/default_runtime.py',
+#    '/home/ahmed/work/mmpose/configs/_base_/datasets/coco.py'
+#]
+
 _base_ = [
     '../../../../_base_/default_runtime.py',
     '../../../../_base_/datasets/coco.py'

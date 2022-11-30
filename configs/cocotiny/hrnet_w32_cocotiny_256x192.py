@@ -16,6 +16,9 @@ seed = 0
 
 # set log interval
 #log_config.interval = 1
+log_config = dict(
+    interval=1
+)
 
 # set evaluation configs
 evaluation = dict(interval=10, metric='PCK', save_best='PCK')
@@ -30,7 +33,7 @@ lr_config = dict(
     warmup_iters=10,
     warmup_ratio=0.001,
     step=[17, 35])
-total_epochs = 40
+total_epochs = 2
 
 # set batch size
 data = dict(
@@ -46,14 +49,14 @@ data = dict(
         #pipeline=train_pipeline,
         #dataset_info={{_base_.dataset_info}}),
     val=dict(
-        type='TopDownCOCTinyDataset',
+        type='TopDownCOCOTinyDataset',
         ann_file=f'{data_root}/val.json',
         img_prefix=f'{data_root}/images/'),
         #data_cfg=data_cfg,
         #pipeline=val_pipeline,
         #dataset_info={{_base_.dataset_info}}),
     test=dict(
-        type='TopDownCocoDataset',
+        type='TopDownCOCODataset',
         ann_file=f'{data_root}/annotations/person_keypoints_val2017.json',
         img_prefix=f'{data_root}/images/'),
         #data_cfg=data_cfg,

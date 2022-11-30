@@ -3,10 +3,15 @@ from mmpose.models import build_posenet
 from mmpose.apis import train_model
 import mmcv
 from mmcv import Config
+from mmpose.datasets.builder import DATASETS
+import sys
 
+#cfg = Config.fromfile('./configs/cocotiny/hrnet_w32_cocotiny_256x192.py')
 cfg = Config.fromfile('./configs/cocotiny/hrnet_w32_cocotiny_256x192.py')
-#cfg = Config.fromfile('/home/ahmed/work/mmpose/configs/cocotiny/hrnet_w32_cocotiny_256x192.py')
+#print(cfg.pretty_text)
 # build dataset
+print(DATASETS)
+#sys.exit()
 datasets = [build_dataset(cfg.data.train)]
 
 # build model
