@@ -5,12 +5,13 @@ import mmcv
 from mmcv import Config
 from mmpose.datasets.builder import DATASETS
 import sys
-
+import pprint
+pp = pprint.PrettyPrinter(width=41, compact=True)
 #cfg = Config.fromfile('./configs/cocotiny/hrnet_w32_cocotiny_256x192.py')
 cfg = Config.fromfile('./configs/cocotiny/hrnet_w32_cocotiny_256x192.py')
 #print(cfg.pretty_text)
 # build dataset
-print(DATASETS)
+pp.pprint(DATASETS)
 #sys.exit()
 datasets = [build_dataset(cfg.data.train)]
 

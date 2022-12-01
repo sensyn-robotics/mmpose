@@ -11,7 +11,7 @@ dataset_info = dict(
     dataset_name='coco',
     paper_info=dict(
         author=
-        'Lin, Tsung-Yi and Maire, Michael and Belongie, Serge and Hays, James and Perona, Pietro and Ramanan, Deva and Doll{\'a}r, Piotr and Zitnick, C Lawrence',
+        "Lin, Tsung-Yi and Maire, Michael and Belongie, Serge and Hays, James and Perona, Pietro and Ramanan, Deva and Doll{\\'a}r, Piotr and Zitnick, C Lawrence",
         title='Microsoft coco: Common objects in context',
         container='European conference on computer vision',
         year='2014',
@@ -394,7 +394,7 @@ data = dict(
             dataset_name='coco',
             paper_info=dict(
                 author=
-                'Lin, Tsung-Yi and Maire, Michael and Belongie, Serge and Hays, James and Perona, Pietro and Ramanan, Deva and Doll{\'a}r, Piotr and Zitnick, C Lawrence',
+                "Lin, Tsung-Yi and Maire, Michael and Belongie, Serge and Hays, James and Perona, Pietro and Ramanan, Deva and Doll{\\'a}r, Piotr and Zitnick, C Lawrence",
                 title='Microsoft coco: Common objects in context',
                 container='European conference on computer vision',
                 year='2014',
@@ -654,7 +654,7 @@ data = dict(
             dataset_name='coco',
             paper_info=dict(
                 author=
-                'Lin, Tsung-Yi and Maire, Michael and Belongie, Serge and Hays, James and Perona, Pietro and Ramanan, Deva and Doll{\'a}r, Piotr and Zitnick, C Lawrence',
+                "Lin, Tsung-Yi and Maire, Michael and Belongie, Serge and Hays, James and Perona, Pietro and Ramanan, Deva and Doll{\\'a}r, Piotr and Zitnick, C Lawrence",
                 title='Microsoft coco: Common objects in context',
                 container='European conference on computer vision',
                 year='2014',
@@ -914,7 +914,7 @@ data = dict(
             dataset_name='coco',
             paper_info=dict(
                 author=
-                'Lin, Tsung-Yi and Maire, Michael and Belongie, Serge and Hays, James and Perona, Pietro and Ramanan, Deva and Doll{\'a}r, Piotr and Zitnick, C Lawrence',
+                "Lin, Tsung-Yi and Maire, Michael and Belongie, Serge and Hays, James and Perona, Pietro and Ramanan, Deva and Doll{\\'a}r, Piotr and Zitnick, C Lawrence",
                 title='Microsoft coco: Common objects in context',
                 container='European conference on computer vision',
                 year='2014',

@@ -7,6 +7,11 @@ _base_="/home/ahmed/work/mmpose/configs/body/2d_kpt_sview_rgb_img/topdown_heatma
 #_base_="./configs/body/2d_kpt_sview_rgb_img/topdown_heatmap/coco/hrnet_w32_coco_256x192.py"
 data_root = '/home/ahmed/work/mmpose/data/coco_tiny'
 
+#custom_imports = dict(
+#    imports=['.mmpose.datasets.datasets.top_down.topdown_coco_tiny_dataset.py'],
+#    allow_failed_imports=False)
+
+
 # set basic configs
 
 data_root = '/home/ahmed/work/mmpose/data/coco_tiny'
