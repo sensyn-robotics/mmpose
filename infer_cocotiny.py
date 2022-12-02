@@ -8,10 +8,13 @@ import cv2
 
 
 root_dir = "/home/ahmed/work/mmpose/"
+root_dir2 = "/home/ahmed/work/mmdetection/"
 cfg = Config.fromfile(os.path.join(root_dir, 'configs/cocotiny/hrnet_w32_cocotiny_256x192.py'))
 pose_checkpoint = os.path.join(root_dir, 'work_dirs/hrnet_w32_coco_tiny_256x192/latest.pth')
-det_config = os.path.join(root_dir, 'demo/mmdetection_cfg/faster_rcnn_r50_fpn_coco.py')
-det_checkpoint = '/home/ahmed/work/mmdetection/checkpoints/faster_rcnn_r50_fpn_1x_coco_20200130-047c8118.pth'
+det_config = os.path.join(root_dir2, 'configs/yolox/yolox_tiny_8x8_300e_coco.py')
+#det_config = os.path.join(root_dir, 'demo/mmdetection_cfg/faster_rcnn_r50_fpn_coco.py')
+det_checkpoint = '/home/ahmed/work/mmdetection/checkpoints/yolox_tiny_8x8_300e_coco_20211124_171234-b4047906.pth'
+#det_checkpoint = '/home/ahmed/work/mmdetection/checkpoints/faster_rcnn_r50_fpn_1x_coco_20200130-047c8118.pth'
 
 pose_model = init_pose_model(cfg, pose_checkpoint)
 det_model = init_detector(det_config, det_checkpoint)
@@ -42,7 +45,7 @@ vis_result = vis_pose_result(
 
 #vis_result = cv2.resize(vis_result, dsize=None, fx=0.5, fy=0.5)
 
-filename = os.path.join(root_dir,'vis_results', 'pose_results_person.png')
+filename = os.path.join(root_dir,'vis_results', 'pose_results_person_yolox.png')
 cv2.imwrite(filename, vis_result)
 
 
