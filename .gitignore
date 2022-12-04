@@ -132,3 +132,5 @@ docs/**/modelzoo.md
 
 *.DS_Store
 ./vis_results
+./detection/*.jpg
+./detection/*.png
