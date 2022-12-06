@@ -25,13 +25,20 @@ log_config = dict(
         # dict(type='TensorboardLoggerHook')
     ])
 
+#channel_cfg = dict(
+#    num_output_channels=19,
+#    dataset_joints=19,
+#    dataset_channel=[
+#        list(range(19)),
+#    ],
+#    inference_channel=list(range(19)))
 channel_cfg = dict(
-    num_output_channels=19,
-    dataset_joints=19,
+    num_output_channels=4,
+    dataset_joints=4,
     dataset_channel=[
-        list(range(19)),
+        list(range(4)),
     ],
-    inference_channel=list(range(19)))
+    inference_channel=list(range(4)))
 
 # model settings
 model = dict(
@@ -39,6 +46,7 @@ model = dict(
     pretrained='open-mmlab://msra/hrnetv2_w18',
     backbone=dict(
         type='HRNet',
+        #in_channels=4,
         in_channels=3,
         extra=dict(
             stage1=dict(
@@ -134,7 +142,7 @@ test_pipeline = val_pipeline
 
 data_root = 'data/aflw'
 data = dict(
-    samples_per_gpu=64,
+    samples_per_gpu=16,
     workers_per_gpu=2,
     val_dataloader=dict(samples_per_gpu=32),
     test_dataloader=dict(samples_per_gpu=32),

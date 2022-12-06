@@ -4,18 +4,18 @@ work_dir="/home/ahmed/work/mmpose/work_dirs/hrnet_w32_meter-test_256x192"
 gpu_ids = range(1)
 seed = 0
 
-total_epochs = 2
+total_epochs = 100
 log_config = dict(
     interval=1,
 )
 
 channel_cfg = dict(
-    num_output_channels=3,
-    dataset_joints=3,
+    num_output_channels=4,
+    dataset_joints=4,
     dataset_channel=[
-        list(range(3)),
+        list(range(4)),
     ],
-    inference_channel=list(range(3)))
+    inference_channel=list(range(4)))
 
 # model settings
 #model = dict(
@@ -118,7 +118,9 @@ train_pipeline = [
 #dataset_type='CocoDataset'
 dataset_type='MeterDataset'
 data_root = '/home/ahmed/work/coco-annotator'
-train_annotation_file_name="newMeterAnn.json"
+train_annotation_file_name="newMeterAnn2.json"
+#train_annotation_file_name="newMeterAnnOneImageOnly.json"
+#train_annotation_file_name="newMeterAnnTwoImageOnly.json"
 data = dict(
     train=dict(
         type=dataset_type,

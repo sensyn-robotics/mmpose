@@ -64,7 +64,7 @@ class MeterDataset(Kpt2dSviewRgbImgTopDownDataset):
         self.dataset_name = 'meter-test'
         self.ann_info['use_different_joint_weights'] = False
         self.db = self._get_db()
-
+        print(f'=> ann_file: {self.ann_file}')
         print(f'=> num_images: {self.num_images}')
         print(f'=> load {len(self.db)} samples')
 

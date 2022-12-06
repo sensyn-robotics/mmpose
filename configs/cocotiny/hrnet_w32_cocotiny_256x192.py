@@ -69,23 +69,3 @@ data = dict(
         #dataset_info={{_base_.dataset_info}}),
 )
 
-
-#data.samples_per_gpu = 16
-#data.val_dataloader = dict(samples_per_gpu=16)
-#data.test_dataloader = dict(samples_per_gpu=16)
-#
-## set dataset configs
-#data.train.type = 'TopDownCOCOTinyDataset'
-#data.train.ann_file = f'{cfg.data_root}/train.json'
-#data.train.img_prefix = f'{cfg.data_root}/images/'
-#
-#data.val.type = 'TopDownCOCOTinyDataset'
-#data.val.ann_file = f'{cfg.data_root}/val.json'
-#data.val.img_prefix = f'{cfg.data_root}/images/'
-#
-#data.test.type = 'TopDownCOCOTinyDataset'
-#data.test.ann_file = f'{cfg.data_root}/val.json'
-#data.test.img_prefix = f'{cfg.data_root}/images/'
-
-#print(cfg.pretty_text)
-
