@@ -1,6 +1,8 @@
 _base_ = '/home/ahmed/work/mmpose/configs/face/2d_kpt_sview_rgb_img/topdown_heatmap/aflw/hrnetv2_w18_meter_256x256.py'
 
-
+work_dir="/home/ahmed/work/mmpose/work_dirs/hrnet_w32_meter-test_256x192"
+gpu_ids = range(1)
+seed = 0
 
 total_epochs = 2
 log_config = dict(
@@ -8,12 +10,12 @@ log_config = dict(
 )
 
 channel_cfg = dict(
-    num_output_channels=4,
-    dataset_joints=4,
+    num_output_channels=3,
+    dataset_joints=3,
     dataset_channel=[
-        list(range(4)),
+        list(range(3)),
     ],
-    inference_channel=list(range(4)))
+    inference_channel=list(range(3)))
 
 # model settings
 #model = dict(
@@ -113,19 +115,21 @@ train_pipeline = [
 #]
 
 #test_pipeline = val_pipeline
-
+#dataset_type='CocoDataset'
+dataset_type='MeterDataset'
 data_root = '/home/ahmed/work/coco-annotator'
+train_annotation_file_name="newMeterAnn.json"
 data = dict(
     train=dict(
-        type='MeterDataset',
-        ann_file=f'{data_root}/datasets/meter-test-1.json',
-        img_prefix=f'{data_root}',
+        type=dataset_type,
+        ann_file=f'{data_root}/datasets/{train_annotation_file_name}',
+        img_prefix=f'{data_root}/datasets/meter-test',
         data_cfg=data_cfg,
     ),
     val=dict(
-        type='MeterDataset',
-        ann_file=f'{data_root}/datasets/meter-test-1.json',
-        img_prefix=f'{data_root}',
+        type=dataset_type,
+        ann_file=f'{data_root}/datasets/{train_annotation_file_name}',
+        img_prefix=f'{data_root}/datasets/meter-test',
         data_cfg=data_cfg
     )
 #        pipeline=val_pipeline,

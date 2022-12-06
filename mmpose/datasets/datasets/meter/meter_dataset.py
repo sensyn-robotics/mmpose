@@ -61,7 +61,7 @@ class MeterDataset(Kpt2dSviewRgbImgTopDownDataset):
             pipeline,
             dataset_info=dataset_info,
             test_mode=test_mode)
-
+        self.dataset_name = 'meter-test'
         self.ann_info['use_different_joint_weights'] = False
         self.db = self._get_db()
 
@@ -79,11 +79,12 @@ class MeterDataset(Kpt2dSviewRgbImgTopDownDataset):
             objs = self.coco.loadAnns(ann_ids)
 
             for obj in objs:
+                image_file = osp.join(self.img_prefix, self.id2name[img_id])
+
                 if self.test_mode:
                     # 'box_size' is used as normalization factor
                     assert 'box_size' in obj
-                if max(obj['keypoints']) == 0:
-                    continue
+                
                 joints_3d = np.zeros((num_joints, 3), dtype=np.float32)
                 joints_3d_visible = np.zeros((num_joints, 3), dtype=np.float32)
 
@@ -94,8 +95,7 @@ class MeterDataset(Kpt2dSviewRgbImgTopDownDataset):
                 # center = np.array(obj['center'])
                 # scale = np.array([obj['scale'], obj['scale']])
 
-                image_file = osp.join(self.img_prefix, self.id2name[img_id])
-
+                
                 gt_db.append({
                     'image_file': image_file,
                     'rotation': 0,
@@ -103,10 +103,19 @@ class MeterDataset(Kpt2dSviewRgbImgTopDownDataset):
                     'joints_3d_visible': joints_3d_visible,
                     'dataset': self.dataset_name,
                     'bbox': obj['bbox'],
-                    'box_size': obj['box_size'],
+                    'box_size': obj['area'],
                     'bbox_score': 1,
                     'bbox_id': bbox_id
                 })
+                # gt_db.append({
+                #     'image_file': image_file,
+                #     'keypoints':keypoints,
+                #     'dataset': self.dataset_name,
+                #     'bbox': obj['bbox'],
+                #     'box_size': obj['area'],
+                #     'bbox_score': 1,
+                #     'bbox_id': bbox_id
+                # })
                 bbox_id = bbox_id + 1
         gt_db = sorted(gt_db, key=lambda x: x['bbox_id'])
 

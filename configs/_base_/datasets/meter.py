@@ -15,9 +15,9 @@ dataset_info = dict(
         dict(name='kpt-1', id=1, color=[255, 255, 255], type='', swap=''),
         2:
         dict(name='kpt-2', id=2, color=[255, 255, 255], type='', swap=''),
-        3:
-        dict(name='kpt-3', id=3, color=[255, 255, 255], type='', swap=''),
+#        3:
+#        dict(name='kpt-3', id=3, color=[255, 255, 255], type='', swap=''),
     },
     skeleton_info={},
-    joint_weights=[1.] * 19,
+    joint_weights=[1.] * 3,
     sigmas=[])
