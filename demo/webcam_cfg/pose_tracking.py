@@ -35,7 +35,8 @@ executor_cfg = dict(
             'top_down/vipnas/vipnas_mbv3_coco_wholebody_256x192_dark'
             '-e2158108_20211205.pth',
             det_interval=10,
-            labels=['person'],
+            class_ids=[1],
+            #labels=['person'],
             smooth=True,
             device='cuda:0',
             input_buffer='_input_',  # `_input_` is an executor-reserved buffer
