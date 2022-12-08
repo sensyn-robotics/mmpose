@@ -26,7 +26,7 @@ from .top_down import (TopDownAicDataset, TopDownCocoDataset,
                        TopDownMpiiDataset, TopDownMpiiTrbDataset,
                        TopDownOCHumanDataset, TopDownPoseTrack18Dataset,
                        TopDownPoseTrack18VideoDataset, TopDownCOCOTinyDataset)
-from .meter import MeterDataset
+from .meter import MeterDataset, MeterDatasetCoco
 
 __all__ = [
     'TopDownCocoDataset', 'BottomUpCocoDataset', 'BottomUpMhpDataset',
@@ -47,5 +47,5 @@ __all__ = [
     'TopDownHalpeDataset', 'TopDownPoseTrack18VideoDataset',
     'Body3DMviewDirectPanopticDataset', 'Body3DMviewDirectShelfDataset',
     'Body3DMviewDirectCampusDataset', 'NVGestureDataset',
-    'TopDownCOCOTinyDataset', 'MeterDataset'
+    'TopDownCOCOTinyDataset', 'MeterDataset','MeterDatasetCoco'
 ]

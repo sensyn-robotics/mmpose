@@ -22,7 +22,7 @@ from .datasets import (  # isort:skip
     TopDownPoseTrack18Dataset, TopDownPoseTrack18VideoDataset,
     Body3DMviewDirectPanopticDataset, Body3DMviewDirectShelfDataset,
     Body3DMviewDirectCampusDataset, NVGestureDataset, TopDownCOCOTinyDataset,
-    MeterDataset
+    MeterDataset, MeterDatasetCoco
 )
 
 __all__ = [
@@ -45,5 +45,5 @@ __all__ = [
     'Compose', 'DistributedSampler', 'DATASETS', 'PIPELINES', 'DatasetInfo',
     'Body3DMviewDirectPanopticDataset', 'Body3DMviewDirectShelfDataset',
     'Body3DMviewDirectCampusDataset', 'NVGestureDataset',
-    'TopDownCOCOTinyDataset', 'MeterDataset'
+    'TopDownCOCOTinyDataset', 'MeterDataset', 'MeterDatasetCoco'
 ]

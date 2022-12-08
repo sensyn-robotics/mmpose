@@ -80,7 +80,7 @@ class MeterDataset(Kpt2dSviewRgbImgTopDownDataset):
 
             for obj in objs:
                 image_file = osp.join(self.img_prefix, self.id2name[img_id])
-
+                print(f"{image_file} analysis start")
                 if self.test_mode:
                     # 'box_size' is used as normalization factor
                     assert 'box_size' in obj

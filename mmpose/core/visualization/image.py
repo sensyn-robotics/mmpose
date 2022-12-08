@@ -206,7 +206,6 @@ def imshow_keypoints(img,
                         dst=img)
                 else:
                     cv2.line(img, pos1, pos2, color, thickness=thickness)
-
     return img
 
 

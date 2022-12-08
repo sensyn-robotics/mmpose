@@ -138,3 +138,5 @@ tests/data/**/*.jpg
 ./detection/*.png
 ./data
 ./*.mp4
+./*.txt
+./temp

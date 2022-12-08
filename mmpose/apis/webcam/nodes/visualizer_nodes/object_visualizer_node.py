@@ -10,7 +10,8 @@ from mmpose.datasets import DatasetInfo
 from ...utils import FrameMessage
 from ..base_visualizer_node import BaseVisualizerNode
 from ..registry import NODES
-
+import cv2
+import sys
 
 @NODES.register_module()
 class ObjectVisualizerNode(BaseVisualizerNode):
@@ -138,7 +139,6 @@ class ObjectVisualizerNode(BaseVisualizerNode):
     def _draw_keypoint(self, canvas: np.ndarray, input_msg: FrameMessage):
         """Draw object keypoints."""
         objects = input_msg.get_objects(lambda x: 'pose_model_cfg' in x)
-
         # return if there is no object with keypoints
         if not objects:
             return canvas
@@ -146,6 +146,7 @@ class ObjectVisualizerNode(BaseVisualizerNode):
         for model_cfg, group in groupby(objects,
                                         lambda x: x['pose_model_cfg']):
             dataset_info = DatasetInfo(model_cfg.dataset_info)
+            #print(f"{model_cfg.dataset_info} dataset name")
             keypoints = [obj['keypoints'] for obj in group]
             imshow_keypoints(
                 canvas,
@@ -161,7 +162,6 @@ class ObjectVisualizerNode(BaseVisualizerNode):
 
     def draw(self, input_msg: FrameMessage) -> np.ndarray:
         canvas = input_msg.get_image()
-
         if self.show_bbox:
             canvas = self._draw_bbox(canvas, input_msg)
 

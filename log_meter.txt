@@ -1,0 +1,7 @@
+load checkpoint from local path: /home/ahmed/work/mmpose/work_dirs/hrnet_w32_meter_256x192/latest.pth
+load checkpoint from local path: /home/ahmed/work/mmdetection/checkpoints/yolox_tiny_8x8_300e_coco_20211124_171234-b4047906.pth
+[{'bbox': array([393.62402  , 268.21457  , 617.3151   , 488.54254  ,   0.9049231],
+      dtype=float32), 'keypoints': array([[454.4983    , 420.61188   ,   0.7369312 ],
+       [530.22705   , 429.3498    ,   0.6952758 ],
+       [501.1006    , 382.7475    ,   0.83466315],
+       [448.67297   , 429.3498    ,   0.8373885 ]], dtype=float32)}]
