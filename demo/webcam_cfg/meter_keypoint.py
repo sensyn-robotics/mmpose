@@ -3,6 +3,7 @@ executor_cfg = dict(
     # Basic configurations of the executor
     name='Meter Reading',
     camera_id=0,
+    camera_max_fps=30,
     synchronous=False,
     # Define nodes.
     # The configuration of a node usually includes:
