@@ -131,12 +131,13 @@ tests/data/**/*.jpg
 
 # Pytorch
 *.pth
-
+#images-videos-files
 *.DS_Store
-./vis_results
+./vis_results/
 ./detection/*.jpg
 ./detection/*.png
-./data
+./data/
 ./*.mp4
 ./*.txt
-./temp
+./temp/
+./videos/
