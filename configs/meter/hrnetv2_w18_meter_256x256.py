@@ -1,6 +1,6 @@
-_base_ = '/home/ahmed/work/mmpose/configs/body/2d_kpt_sview_rgb_img/topdown_heatmap/coco/hrnet_w32_meter_256x192.py'
+_base_ = '../body/2d_kpt_sview_rgb_img/topdown_heatmap/coco/hrnet_w32_meter_256x192.py'
 
-work_dir="/home/ahmed/work/mmpose/work_dirs/hrnet_w32_meter_256x192"
+work_dir="../../work_dirs/hrnet_w32_meter_256x192"
 gpu_ids = range(1)
 seed = 0
 
@@ -38,8 +38,8 @@ lr_config = dict(
 
 
 dataset_type='MeterDataset'
-#dataset_type='MeterDatasetCoco'
-data_root = '/home/ahmed/work/coco-annotator'
+#Root directory of meter dataset 
+data_root = '../../../coco-annotator'
 train_annotation_file_name="meter_train.json"
 test_annotation_file_name="meter_test.json"
 
