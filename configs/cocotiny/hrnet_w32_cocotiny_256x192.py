@@ -1,6 +1,5 @@
-_base_="/home/ahmed/work/mmpose/configs/body/2d_kpt_sview_rgb_img/topdown_heatmap/coco/hrnet_w32_coco_256x192.py"
-#_base_="./configs/body/2d_kpt_sview_rgb_img/topdown_heatmap/coco/hrnet_w32_coco_256x192.py"
-data_root = '/home/ahmed/work/mmpose/data/coco_tiny'
+_base_="../body/2d_kpt_sview_rgb_img/topdown_heatmap/coco/hrnet_w32_coco_256x192.py"
+data_root = '../../data/coco_tiny'
 
 #custom_imports = dict(
 #    imports=['.mmpose.datasets.datasets.top_down.topdown_coco_tiny_dataset.py'],
@@ -9,8 +8,8 @@ data_root = '/home/ahmed/work/mmpose/data/coco_tiny'
 
 # set basic configs
 
-data_root = '/home/ahmed/work/mmpose/data/coco_tiny'
-work_dir = '/home/ahmed/work/mmpose/work_dirs/hrnet_w32_coco_tiny_256x192'
+data_root = '../../data/coco_tiny'
+work_dir = '../../work_dirs/hrnet_w32_coco_tiny_256x192'
 gpu_ids = range(1)
 seed = 0
 
