@@ -1,3 +1,4 @@
+#According to the sample in https://mmpose.readthedocs.io/en/latest/tutorials/2_new_dataset.html
 dataset_info = dict(
     dataset_name='meter',
     paper_info=dict(
