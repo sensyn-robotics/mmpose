@@ -1,6 +1,6 @@
 _base_ = '../body/2d_kpt_sview_rgb_img/topdown_heatmap/coco/hrnet_w32_meter_256x192.py'
 
-work_dir="../../work_dirs/hrnet_w32_meter-test_256x192"
+work_dir="../../work_dirs/hrnet_w32_meter-test2_256x192"
 gpu_ids = range(1)
 seed = 0
 
@@ -69,7 +69,7 @@ data = dict(
     test=dict(
         type='MeterDataset',
         ann_file=f'{data_root}/datasets/{test_annotation_file_name}',
-        img_prefix=f'{data_root}/meter/test',
+        img_prefix=f'{data_root}/datasets/meter/test',
         data_cfg={{_base_.data_cfg}},
         pipeline={{_base_.test_pipeline}},
         dataset_info={{_base_.dataset_info}}
