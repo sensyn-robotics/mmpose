@@ -231,8 +231,9 @@ class Kpt2dSviewRgbImgTopDownDataset(Dataset, metaclass=ABCMeta):
             gts.append(np.array(item['joints_3d'])[:, :-1])
             masks.append((np.array(item['joints_3d_visible'])[:, 0]) > 0)
             if 'PCK' in metrics:
-                bbox = np.array(item['bbox'])
+                bbox = np.array(item['bbox']) #bbox=> (x_min, y_min, width, height)
                 bbox_thr = np.max(bbox[2:])
+                #threshold_bbox is the max(width, height) of each bbox
                 threshold_bbox.append(np.array([bbox_thr, bbox_thr]))
             if 'PCKh' in metrics:
                 head_box_thr = item['head_size']

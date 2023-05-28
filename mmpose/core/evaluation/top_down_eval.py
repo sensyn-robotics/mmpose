@@ -28,7 +28,9 @@ def _calc_distances(preds, targets, mask, normalize):
             If target keypoints are missing, the distance is -1.
     """
     N, K, _ = preds.shape
-    # set mask=0 when normalize==0
+    #normalize is numberOfImages x 2. Axis=1 contains height of bounding boxes in each image
+    # set mask=False when normalize==0 #to avoid division by zero
+    # mask shape numberOfImages x numOfKeypointsPerDetection
     _mask = mask.copy()
     _mask[np.where((normalize == 0).sum(1))[0], :] = False
     distances = np.full((N, K), -1, dtype=np.float32)

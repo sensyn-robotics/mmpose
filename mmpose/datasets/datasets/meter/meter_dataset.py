@@ -5,6 +5,7 @@ import warnings
 from collections import OrderedDict
 
 import numpy as np
+import mmcv
 from mmcv import Config, deprecated_api_warning
 
 from mmpose.datasets.builder import DATASETS
@@ -88,8 +89,11 @@ class MeterDataset(Kpt2dSviewRgbImgTopDownDataset):
                 joints_3d = np.zeros((num_joints, 3), dtype=np.float32)
                 joints_3d_visible = np.zeros((num_joints, 3), dtype=np.float32)
 
+                #reshape keypoints into (numOfKeypoints x eachKeyPoint(x, y ,z))
                 keypoints = np.array(obj['keypoints']).reshape(-1, 3)
+                #input the (x,y) values of each keypoints
                 joints_3d[:, :2] = keypoints[:, :2]
+                #Creating masks => will mask the z value of the joints3d later on
                 joints_3d_visible[:, :2] = np.minimum(1, keypoints[:, 2:3])
 
                 # center = np.array(obj['center'])
@@ -110,8 +114,11 @@ class MeterDataset(Kpt2dSviewRgbImgTopDownDataset):
                 
                 bbox_id = bbox_id + 1
         gt_db = sorted(gt_db, key=lambda x: x['bbox_id'])
+        # gt_db_for_test = np.array(gt_db)
+        # np.save("ground_truths.npy", gt_db_for_test)
         print(f"total bboxes {bbox_id}")
         print(f"get_db length {len(gt_db)}")
+        
         return gt_db
 
     def _get_normalize_factor(self, box_sizes, *args, **kwargs):
@@ -155,8 +162,11 @@ class MeterDataset(Kpt2dSviewRgbImgTopDownDataset):
                     "scale":boxes[i][2:4].tolist(),
                     "area":float(boxes[i][4]),
                     "score":float(boxes[i][5]),
-                    "bbox_id":bbox_ids[i]
+                    "bbox_id":bbox_ids[i],
+                    "image_paths": image_paths[i]
                 })
+        
+
         kpts = self._sort_and_unique_bboxes(kpts)
 
         self._write_keypoint_results(kpts, res_file)
