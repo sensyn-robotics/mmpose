@@ -5,6 +5,7 @@ import warnings
 from collections import OrderedDict
 
 import numpy as np
+import mmcv
 from mmcv import Config, deprecated_api_warning
 
 from mmpose.datasets.builder import DATASETS
@@ -73,7 +74,7 @@ class MeterDataset(Kpt2dSviewRgbImgTopDownDataset):
         gt_db = []
         bbox_id = 0
         num_joints = self.ann_info['num_joints']
-        for img_id in self.img_ids:
+        for i, img_id in enumerate(self.img_ids):
 
             ann_ids = self.coco.getAnnIds(imgIds=img_id, iscrowd=False)
             objs = self.coco.loadAnns(ann_ids)
@@ -88,8 +89,11 @@ class MeterDataset(Kpt2dSviewRgbImgTopDownDataset):
                 joints_3d = np.zeros((num_joints, 3), dtype=np.float32)
                 joints_3d_visible = np.zeros((num_joints, 3), dtype=np.float32)
 
+                #reshape keypoints into (numOfKeypoints x eachKeyPoint(x, y ,z))
                 keypoints = np.array(obj['keypoints']).reshape(-1, 3)
+                #input the (x,y) values of each keypoints
                 joints_3d[:, :2] = keypoints[:, :2]
+                #Creating masks => will mask the z value of the joints3d later on
                 joints_3d_visible[:, :2] = np.minimum(1, keypoints[:, 2:3])
 
                 # center = np.array(obj['center'])
@@ -107,18 +111,14 @@ class MeterDataset(Kpt2dSviewRgbImgTopDownDataset):
                     'bbox_score': 1,
                     'bbox_id': bbox_id
                 })
-                # gt_db.append({
-                #     'image_file': image_file,
-                #     'keypoints':keypoints,
-                #     'dataset': self.dataset_name,
-                #     'bbox': obj['bbox'],
-                #     'box_size': obj['area'],
-                #     'bbox_score': 1,
-                #     'bbox_id': bbox_id
-                # })
+                
                 bbox_id = bbox_id + 1
         gt_db = sorted(gt_db, key=lambda x: x['bbox_id'])
-
+        # gt_db_for_test = np.array(gt_db)
+        # np.save("ground_truths.npy", gt_db_for_test)
+        print(f"total bboxes {bbox_id}")
+        print(f"get_db length {len(gt_db)}")
+        
         return gt_db
 
     def _get_normalize_factor(self, box_sizes, *args, **kwargs):
@@ -133,49 +133,20 @@ class MeterDataset(Kpt2dSviewRgbImgTopDownDataset):
 
         return np.tile(box_sizes, [1, 2])
 
-    @deprecated_api_warning(name_dict=dict(outputs='results'))
-    def evaluate(self, results, res_folder=None, metric='NME', **kwargs):
-        """Evaluate freihand keypoint results. The pose prediction results will
-        be saved in ``${res_folder}/result_keypoints.json``.
-
-        Note:
-            - batch_size: N
-            - num_keypoints: K
-            - heatmap height: H
-            - heatmap width: W
-
-        Args:
-            results (list[dict]): Testing results containing the following
-                items:
-
-                - preds (np.ndarray[1,K,3]): The first two dimensions are \
-                    coordinates, score is the third dimension of the array.
-                - boxes (np.ndarray[1,6]): [center[0], center[1], scale[0], \
-                    scale[1],area, score]
-                - image_path (list[str]): For example, ['aflw/images/flickr/ \
-                    0/image00002.jpg']
-                - output_heatmap (np.ndarray[N, K, H, W]): model outputs.
-            res_folder (str, optional): The folder to save the testing
-                results. If not specified, a temp folder will be created.
-                Default: None.
-            metric (str | list[str]): Metric to be performed.
-                Options: 'NME'.
-
-        Returns:
-            dict: Evaluation results for evaluation metric.
-        """
+    def evaluate(self, results, res_folder=None, metric='PCK', **kwargs):
         metrics = metric if isinstance(metric, list) else [metric]
-        allowed_metrics = ['NME']
+        allowed_metrics = ['PCK', 'NME']
         for metric in metrics:
             if metric not in allowed_metrics:
-                raise KeyError(f'metric {metric} is not supported')
+                raise KeyError(f"metric {metric} is not supported")
 
-        if res_folder is not None:
+        if res_folder is None:
             tmp_folder = None
             res_file = osp.join(res_folder, 'result_keypoints.json')
         else:
             tmp_folder = tempfile.TemporaryDirectory()
             res_file = osp.join(tmp_folder.name, 'result_keypoints.json')
+
 
         kpts = []
         for result in results:
@@ -183,27 +154,28 @@ class MeterDataset(Kpt2dSviewRgbImgTopDownDataset):
             boxes = result['boxes']
             image_paths = result['image_paths']
             bbox_ids = result['bbox_ids']
-
             batch_size = len(image_paths)
             for i in range(batch_size):
-                image_id = self.name2id[image_paths[i][len(self.img_prefix):]]
-
                 kpts.append({
-                    'keypoints': preds[i].tolist(),
-                    'center': boxes[i][0:2].tolist(),
-                    'scale': boxes[i][2:4].tolist(),
-                    'area': float(boxes[i][4]),
-                    'score': float(boxes[i][5]),
-                    'image_id': image_id,
-                    'bbox_id': bbox_ids[i]
+                    "keypoints":preds[i].tolist(),
+                    "center":boxes[i][0:2].tolist(),
+                    "scale":boxes[i][2:4].tolist(),
+                    "area":float(boxes[i][4]),
+                    "score":float(boxes[i][5]),
+                    "bbox_id":bbox_ids[i],
+                    "image_paths": image_paths[i]
                 })
+        
+
         kpts = self._sort_and_unique_bboxes(kpts)
 
         self._write_keypoint_results(kpts, res_file)
         info_str = self._report_metric(res_file, metrics)
-        name_value = OrderedDict(info_str)
+        name_value =OrderedDict(info_str)
 
         if tmp_folder is not None:
             tmp_folder.cleanup()
 
         return name_value
+
+
