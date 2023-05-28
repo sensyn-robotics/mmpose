@@ -145,3 +145,4 @@ demo/*.mp4
 demo/*.mp4
 demo/*.ipynb
 *.json
+**/*.jpg
